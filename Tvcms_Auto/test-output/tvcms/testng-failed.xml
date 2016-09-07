@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [tvcms]">
+  <parameter name="LoginName" value="bestv"/>
+  <parameter name="Password" value="bestv"/>
+  <parameter name="BaseUrl" value="http://10.61.41.40:8085"/>
+  <test name="vod_queryBycode(failed)">
+    <parameter name="LoginName" value="bestv"/>
+    <parameter name="Password" value="bestv"/>
+    <parameter name="BaseUrl" value="http://10.61.41.40:8085"/>
+    <classes>
+      <class name="common.Vod_queryByCode">
+        <methods>
+          <include name="beforeClass"/>
+          <include name="AfterMethod"/>
+          <include name="afterClass"/>
+          <include name="queryByCode"/>
+        </methods>
+      </class> <!-- common.Vod_queryByCode -->
+    </classes>
+  </test> <!-- vod_queryBycode(failed) -->
+</suite> <!-- Failed suite [tvcms] -->

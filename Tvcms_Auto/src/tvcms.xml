@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="false">
+
+	<test name="tvcms" preserve-order="true">
+		<parameter name="BaseUrl" value="http://10.61.41.40:8085/" />
+		<parameter name="LoginName" value="bestv" />
+		<parameter name="Password" value="bestv" />
+		<classes>
+			<class name="common.Login">
+
+			</class>
+			<class name="common.Vod_queryByCode">
+				<parameter name="vodCode" value="1909874" />
+				<parameter name="VOD_NAME" value="bestv" />
+			</class>
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->

@@ -1,0 +1,66 @@
+<project name="Tvcms_selenium" basedir="."	default="start_server_and_run_tests">
+	<propertyname = src.dir " value="src" />
+	<propertyname = dist.dir " value="dist" />
+	<pathid = test.classpath ">
+		<pathelementlocation = src.dir } />
+		<pathelementlocation = dist.dir } />
+		<pathelementlocation = />
+		<!-- adding the saxon jar to your classpath -->
+		<filesetdir = lib.dir } includes="*.jar" />
+	</path>
+		<taskdefname = testng " classname="com.beust.testng.TestNGAntTask"
+			classpath="${lib.dir}/testng-6.1.1.jar" />
+		<targetname = compile ">
+			<!--clean the old classes -->
+			<deletedir = dist.dir } failonerror="false" />
+			<!--create new dist dir -->
+			<mkdirdir = dist.dir } />
+			<!--compile -->
+			<javacclasspathref = test.classpath " srcdir="${src.dir}"
+				destdir="${dist.dir}" />
+		</target>
+			<targetname = start_server_and_run_tests " depends="compile"
+				description="start selenium server and run tests">
+				<parallel>
+					<antcalltarget = start_selenium_server " />
+					<sequential>
+						<echotaskname = waitfor "
+							message="wait for selenium server launch" />
+						<waitformaxwait = maxwaitunit="minute" checkevery="10">
+							<httpurl = http: / localhost:4444 / selenium-server /
+								driver / cmd=testComplete " />
+						</waitfor>
+							<antcalltarget = run_tests ">
+							</antcall>
+					</sequential>
+				</parallel>
+			</target>
+				<targetname = run_tests ">
+					<testngclasspathref = test.classpath "
+						outputDir="test-output">
+						<xmlfilesetdir = src " includes="tvcms.xml" />
+					</testng>
+						<xsltin = basedir } test-output / testng-results.xml "
+							style="${basedir}/test-output/testng-results.xsl" out="${basedir}/test-output/index1.html">
+							<!-- you need to specify the directory here again -->
+							<paramname = testNgXslt.outputDir "
+								expression="${basedir}/test-output/" />
+							<classpathrefid = test.classpath " />
+						</xslt>
+							<antcalltarget = stop_selenium_server " />
+							<failmessage = ERROR: test failed ! if="test.failed" />
+						</target>
+							<targetname = start_selenium_server ">
+								<echomessage = starting selenium server " />
+								<javajar = lib.dir }
+									selenium-server-standalone-2.1.0.jar " fork="true" spawn="false"
+									output="selenium.log" />
+							</target>
+								<targetname = stop_selenium_server ">
+									<echomessage = going to stop the selenium server " />
+									<gettaskname = selenium-shutdown "
+										src="http://localhost:4444/selenium-server/driver/?cmd=shutDownSeleniumServer"
+										dest="stop.out" ignoreerrors="true" />
+								</target>
+</project>
+
